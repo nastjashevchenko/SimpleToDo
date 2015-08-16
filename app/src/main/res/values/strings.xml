@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TodoApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_item_hint">Add new item to list</string>
+    <string name="add_item_button_text">Add Item</string>
+    <string name="title_activity_edit_item">EditItemActivity</string>
+    <string name="edit_item_comment">Edit Item Below</string>
+    <string name="edit_item_button_text">Save</string>
+</resources>
