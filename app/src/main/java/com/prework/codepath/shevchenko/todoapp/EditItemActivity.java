@@ -7,19 +7,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 
 public class EditItemActivity extends ActionBarActivity {
+    private EditText itemText;
+    private Spinner itemPriority;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
-        EditText itemText = (EditText) findViewById(R.id.editItemText);
+        itemText = (EditText) findViewById(R.id.editItemText);
+        itemPriority = (Spinner) findViewById(R.id.priority);
         String itemTextValue = getIntent().getStringExtra("itemText");
+        int itemPriorityValue = getIntent().getIntExtra("priority", 1);
         itemText.setText(itemTextValue);
         itemText.setSelection(itemTextValue.length());
-        itemText.requestFocus();
+        itemPriority.setSelection(itemPriorityValue);
     }
 
     @Override
@@ -45,10 +50,10 @@ public class EditItemActivity extends ActionBarActivity {
     }
 
     public void onSaveAfterEdit(View view) {
-        EditText itemText = (EditText) findViewById(R.id.editItemText);
         Intent data = new Intent();
-        data.putExtra("position", getIntent().getIntExtra("position", 0));
-        data.putExtra("itemText", itemText.getText().toString());
+        data.putExtra("position", getIntent().getIntExtra("position", 0))
+                .putExtra("itemText", itemText.getText().toString())
+                .putExtra("priority", itemPriority.getSelectedItemPosition());
         setResult(RESULT_OK, data);
         finish();
     }
