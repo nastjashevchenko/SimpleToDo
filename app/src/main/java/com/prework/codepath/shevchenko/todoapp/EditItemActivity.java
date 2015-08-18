@@ -13,6 +13,7 @@ import android.widget.Spinner;
 public class EditItemActivity extends ActionBarActivity {
     private EditText itemText;
     private Spinner itemPriority;
+    private Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +21,10 @@ public class EditItemActivity extends ActionBarActivity {
         setContentView(R.layout.activity_edit_item);
         itemText = (EditText) findViewById(R.id.editItemText);
         itemPriority = (Spinner) findViewById(R.id.priority);
-        String itemTextValue = getIntent().getStringExtra("itemText");
-        int itemPriorityValue = getIntent().getIntExtra("priority", 1);
-        itemText.setText(itemTextValue);
-        itemText.setSelection(itemTextValue.length());
-        itemPriority.setSelection(itemPriorityValue);
+        task = getIntent().getParcelableExtra("task");
+        itemText.setText(task.getDescription());
+        itemText.setSelection(task.getDescription().length());
+        itemPriority.setSelection(task.getPriority());
     }
 
     @Override
@@ -51,9 +51,10 @@ public class EditItemActivity extends ActionBarActivity {
 
     public void onSaveAfterEdit(View view) {
         Intent data = new Intent();
+        task.setPriority(itemPriority.getSelectedItemPosition());
+        task.setDescription(itemText.getText().toString());
         data.putExtra("position", getIntent().getIntExtra("position", 0))
-                .putExtra("itemText", itemText.getText().toString())
-                .putExtra("priority", itemPriority.getSelectedItemPosition());
+                .putExtra("task", task);
         setResult(RESULT_OK, data);
         finish();
     }

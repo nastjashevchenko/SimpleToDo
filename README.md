@@ -4,7 +4,7 @@
 
 Submitted by: **Anastasiya Shevchenko**
 
-Time spent: **8-9** hours spent in total
+Time spent: **9-10** hours spent in total
 
 ## User Stories
 
@@ -22,6 +22,11 @@ The following **optional** features are implemented:
 * [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [x] Add support for selecting the priority of each todo item (and display in listview item)
 * [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
+
+## Notes
+I've decided that it is better implement less functionality, than make a lot of everything but not very good inside.
+For example, I've made class for todo tasks Parcelable (better than transfer all fields between activities), which is not on your list and doesn't change or anything for user.
+Next step is adding sorting by priority or by addition order, it completes priority feature.
 
 ## Video Walkthrough
 

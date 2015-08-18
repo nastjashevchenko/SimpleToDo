@@ -77,11 +77,8 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int pos, long id) {
-                        //@TODO Make Task object Parcelable for putting it to extras
-                        // instead of putting different fields and returning them back
                         Intent editItem = new Intent(view.getContext(), EditItemActivity.class);
-                        editItem.putExtra("itemText", tasks.get(pos).getDescription())
-                                .putExtra("priority", tasks.get(pos).getPriority())
+                        editItem.putExtra("task", tasks.get(pos))
                                 .putExtra("position", pos);
                         startActivityForResult(editItem, EDIT_ITEM_CODE);
                     }
@@ -94,8 +91,7 @@ public class MainActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == EDIT_ITEM_CODE) {
             Task editedTask = tasks.get(data.getIntExtra("position", 0));
-            editedTask.setDescription(data.getStringExtra("itemText"));
-            editedTask.setPriority(data.getIntExtra("priority", 1));
+            editedTask.copyFields((Task) data.getParcelableExtra("task"));
             editedTask.save();
             itemsAdapter.notifyDataSetChanged();
         }
