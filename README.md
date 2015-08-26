@@ -37,7 +37,7 @@ Next step is adding sorting by priority or by addition order, it completes prior
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/NdxUM88.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/wVljA2K.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
