@@ -14,7 +14,7 @@ import java.util.List;
  * Class for tasks in todo list
  */
 @Table(name = "Tasks")
-public class Task extends Model implements Parcelable {
+public class Task extends Model implements Parcelable, Comparable<Task> {
     private static final int DEFAULT_PRIORITY = 1;
     @Column(name = "Description")
     private String description;
@@ -52,6 +52,11 @@ public class Task extends Model implements Parcelable {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        return (task.priority - priority);
     }
 
     public static List<Task> getAll() {

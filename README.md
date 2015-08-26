@@ -23,6 +23,11 @@ The following **optional** features are implemented:
 * [x] Add support for selecting the priority of each todo item (and display in listview item)
 * [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
+**Additional** features:
+
+* [x] Sorting by priority (from high to low)
+* [x] Delete confirmation dialog
+
 ## Notes
 I've decided that it is better implement less functionality, than make a lot of everything but not very good inside.
 For example, I've made class for todo tasks Parcelable (better than transfer all fields between activities), which is not on your list and doesn't change or anything for user.

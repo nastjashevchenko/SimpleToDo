@@ -1,5 +1,7 @@
 package com.prework.codepath.shevchenko.todoapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,7 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tasks = Task.getAll();
+        Collections.sort(tasks);
         lvItems = (ListView) findViewById(R.id.lvItems);
         itemsAdapter = new TaskAdapter(this, tasks);
         lvItems.setAdapter(itemsAdapter);
@@ -55,7 +60,10 @@ public class MainActivity extends ActionBarActivity {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         Task task = new Task(etNewItem.getText().toString());
         task.save();
-        itemsAdapter.add(task);
+        // Re-sort after adding new task by priority
+        tasks.add(task);
+        Collections.sort(tasks);
+        itemsAdapter.notifyDataSetChanged();
         etNewItem.setText("");
     }
 
@@ -64,10 +72,24 @@ public class MainActivity extends ActionBarActivity {
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapter,
-                                                   View item, int pos, long id) {
-                        tasks.get(pos).delete();
-                        tasks.remove(pos);
-                        itemsAdapter.notifyDataSetChanged();
+                                                   View item, final int pos, long id) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(item.getContext());
+                        alert.setMessage(tasks.get(pos).getDescription())
+                                .setTitle(R.string.delete_title)
+                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        tasks.get(pos).delete();
+                                        tasks.remove(pos);
+                                        itemsAdapter.notifyDataSetChanged();
+                                        Toast.makeText(getApplicationContext(), R.string.was_deleted,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                        alert.create().show();
                         return true;
                     }
                 }
@@ -93,6 +115,7 @@ public class MainActivity extends ActionBarActivity {
             Task editedTask = tasks.get(data.getIntExtra("position", 0));
             editedTask.copyFields((Task) data.getParcelableExtra("task"));
             editedTask.save();
+            Collections.sort(tasks);
             itemsAdapter.notifyDataSetChanged();
         }
     }
