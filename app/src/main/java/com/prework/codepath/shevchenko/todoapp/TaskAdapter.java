@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,9 +29,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.task_item, parent, false);
         }
         // Lookup view for data population
+        LinearLayout item = (LinearLayout) convertView.findViewById(R.id.item);
         TextView description = (TextView) convertView.findViewById(R.id.description);
+        TextView dueDate = (TextView) convertView.findViewById(R.id.date);
 
         description.setText(task.getDescription());
+        if (task.getDueDate() != 0L) dueDate.setText(getContext().getResources()
+                .getString(R.string.due, task.getDateStr()));
+
         int color;
         switch(task.getPriority()) {
             case 0 : color = R.color.green;
@@ -42,7 +48,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             default: color = Color.TRANSPARENT;
                      break;
         }
-        description.setBackgroundColor(ContextCompat.getColor(mContext, color));
+        item.setBackgroundColor(ContextCompat.getColor(mContext, color));
         // Return the completed view to render on screen
         return convertView;
     }

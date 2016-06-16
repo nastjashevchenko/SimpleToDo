@@ -8,7 +8,10 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Class for tasks in todo list
@@ -22,6 +25,9 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
 
     @Column(name = "Priority")
     private int priority;
+
+    @Column(name = "DueDate")
+    private long dueDate;
 
     public Task() {
         super();
@@ -55,6 +61,23 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
         this.priority = priority;
     }
 
+    public long getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(long dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getDateStr() {
+        return Task.getDateStr(this.dueDate);
+    }
+
+    public static String getDateStr(long date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy", Locale.US);
+        return dateFormat.format(new Date(date));
+    }
+
     @Override
     public int compareTo(Task task) {
         return (task.priority - priority);
@@ -69,6 +92,7 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
     public void copyFields(Task task) {
         this.description = task.description;
         this.priority = task.priority;
+        this.dueDate = task.dueDate;
     }
 
     // Methods to make Task object Parcelable
@@ -81,6 +105,7 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(description);
         dest.writeInt(priority);
+        dest.writeLong(dueDate);
     }
 
     public static final Parcelable.Creator<Task> CREATOR
@@ -98,5 +123,6 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
     private Task(Parcel in) {
         this.description = in.readString();
         this.priority = in.readInt();
+        this.dueDate = in.readLong();
     }
 }
