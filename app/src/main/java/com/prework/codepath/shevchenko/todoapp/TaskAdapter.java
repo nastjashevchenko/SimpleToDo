@@ -34,8 +34,8 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         TextView dueDate = (TextView) convertView.findViewById(R.id.date);
 
         description.setText(task.getDescription());
-        if (task.getDueDate() != 0L) dueDate.setText(getContext().getResources()
-                .getString(R.string.due, task.getDateStr()));
+        String dueText = getContext().getResources().getString(R.string.due, task.getDateStr());
+        dueDate.setText((task.getDueDate() != 0L) ? dueText : "");
 
         int color;
         switch(task.getPriority()) {

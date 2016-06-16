@@ -19,6 +19,7 @@ import java.util.Locale;
 @Table(name = "Tasks")
 public class Task extends Model implements Parcelable, Comparable<Task> {
     private static final int DEFAULT_PRIORITY = 1;
+    static int sorting = 0;
 
     @Column(name = "Description")
     private String description;
@@ -80,7 +81,21 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
 
     @Override
     public int compareTo(Task task) {
-        return (task.priority - priority);
+        switch (sorting) {
+            case 0:
+                return (task.priority - priority);
+            case 1:
+                return (int) (dueDate - task.dueDate);
+            case 2:
+                int priorityDiff = task.priority - priority;
+                if (priorityDiff != 0) {
+                    return priorityDiff;
+                } else {
+                    return (int) (dueDate - task.dueDate);
+                }
+            default:
+                return (task.priority - priority);
+        }
     }
 
     public static List<Task> getAll() {
