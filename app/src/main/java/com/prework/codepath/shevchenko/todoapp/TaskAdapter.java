@@ -29,7 +29,6 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
         // Lookup view for data population
         TextView description = (TextView) convertView.findViewById(R.id.description);
-        //View priority = convertView.findViewById(R.id.priority);
 
         description.setText(task.getDescription());
         int color;
