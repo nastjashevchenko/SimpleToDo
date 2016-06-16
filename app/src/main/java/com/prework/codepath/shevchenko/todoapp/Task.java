@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "Tasks")
 public class Task extends Model implements Parcelable, Comparable<Task> {
     private static final int DEFAULT_PRIORITY = 1;
+
     @Column(name = "Description")
     private String description;
 
@@ -70,7 +71,7 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
         this.priority = task.priority;
     }
 
-    // Methods to make Task object Parceable
+    // Methods to make Task object Parcelable
     @Override
     public int describeContents() {
         return 0;

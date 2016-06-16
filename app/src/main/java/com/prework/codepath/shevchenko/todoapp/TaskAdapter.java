@@ -2,6 +2,7 @@ package com.prework.codepath.shevchenko.todoapp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 import java.util.List;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
+    private Context mContext;
+
     public TaskAdapter(Context context, List<Task> tasks) {
         super(context, 0, tasks);
+        mContext = context;
     }
 
     @Override
@@ -25,21 +29,21 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
         // Lookup view for data population
         TextView description = (TextView) convertView.findViewById(R.id.description);
-        View priority = convertView.findViewById(R.id.priority);
+        //View priority = convertView.findViewById(R.id.priority);
 
         description.setText(task.getDescription());
         int color;
         switch(task.getPriority()) {
-            case 0 : color = Color.GRAY;
+            case 0 : color = R.color.green;
                      break;
-            case 1 : color = Color.YELLOW;
+            case 1 : color = R.color.yellow;
                      break;
-            case 2 : color = Color.RED;
+            case 2 : color = R.color.red;
                      break;
             default: color = Color.TRANSPARENT;
                      break;
         }
-        priority.setBackgroundColor(color);
+        description.setBackgroundColor(ContextCompat.getColor(mContext, color));
         // Return the completed view to render on screen
         return convertView;
     }
