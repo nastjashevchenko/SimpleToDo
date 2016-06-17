@@ -4,7 +4,7 @@
 
 Submitted by: **Anastasiya Shevchenko**
 
-Time spent: **9-10** hours spent in total
+Time spent: **12-14** hours spent in total
 
 ## User Stories
 
@@ -18,15 +18,16 @@ The following **optional** features are implemented:
 
 * [x] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
 * [x] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
-* [ ] Add support for completion due dates for todo items (and display within listview item)
+* [x] Add support for completion due dates for todo items (and display within listview item)
 * [x] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [x] Add support for selecting the priority of each todo item (and display in listview item)
 * [x] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
 **Additional** features:
 
-* [x] Sorting by priority (from high to low)
+* [x] Sorting setting: by priority (from high to low), by due date (from closest to furthest), by both (first priority, due date inside one priority)
 * [x] Delete confirmation dialog
+* [x] FAB added
 
 ## Notes
 I've decided that it is better implement less functionality, than make a lot of everything but not very good inside.
@@ -37,7 +38,7 @@ Next step is adding sorting by priority or by addition order, it completes prior
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/wVljA2K.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/3KBRzV6.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
