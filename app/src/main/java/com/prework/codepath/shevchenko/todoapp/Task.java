@@ -79,19 +79,30 @@ public class Task extends Model implements Parcelable, Comparable<Task> {
         return dateFormat.format(new Date(date));
     }
 
+    private int compareDates(long d1, long d2) {
+        if (d1 == 0L) {
+            return 1;
+        }
+        else if (d2 == 0L) {
+            return -1;
+        } else {
+            return (int) (d1 - d2);
+        }
+    }
+
     @Override
     public int compareTo(Task task) {
         switch (sorting) {
             case 0:
                 return (task.priority - priority);
             case 1:
-                return (int) (dueDate - task.dueDate);
+                return compareDates(dueDate, task.dueDate);
             case 2:
                 int priorityDiff = task.priority - priority;
                 if (priorityDiff != 0) {
                     return priorityDiff;
                 } else {
-                    return (int) (dueDate - task.dueDate);
+                    return compareDates(dueDate, task.dueDate);
                 }
             default:
                 return (task.priority - priority);

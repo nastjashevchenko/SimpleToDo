@@ -72,7 +72,8 @@ public class AddTaskDialog extends DialogFragment implements View.OnClickListene
         if (!add) {
             priority.setSelection(task.getPriority());
             description.setText(task.getDescription());
-            if (task.getDueDate() != 0L) dueDate.setText(task.getDateStr());
+            date = task.getDueDate();
+            if (date != 0L) dueDate.setText(task.getDateStr());
         }
 
         builder.setPositiveButton("Save",
